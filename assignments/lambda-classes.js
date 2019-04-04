@@ -90,7 +90,7 @@ class ProjectManager extends Instructor {
 
 // Test objects for classes
 
-// Person class
+// Persons
 const ppam = new Person({
     name: 'Pam',
     location: 'Somewhere over the Rainbow',
@@ -104,7 +104,7 @@ console.log(ppam.name);
 console.log(ppam.age);
 ppam.speak();
 
-//Instructor class
+//Instructors
 const igeorge = new Instructor({
     name: 'George',
     location: 'Paris',
@@ -133,7 +133,7 @@ const ibeth = new Instructor({
   console.log(igeorge.specialty);
   igeorge.demo('Javascript');
   
-// Student Class
+// Students
 const sphil = new Student({
     name: 'Phil',
     location: 'London',
@@ -142,9 +142,42 @@ const sphil = new Student({
     previousBackground: 'Barrista',
     className: 'Web19',
     favSubjects: ['JavaScript', 'Video Editing', 'Greek Philosophy', 'Cooking']
-}) 
+});
+
+const scourtney = new Student({
+    name: 'Courtney',
+    location: 'Los Angeles',
+    age: 22,
+    gender: 'female',
+    previousBackground: 'Student',
+    className: 'Web19',
+    favSubjects: ['Shakespeare', 'Chemistry']
+});
 
 // Test logs continued
 ibeth.grade(sphil, 'Javascript IV');
 console.log(sphil.name);
 sphil.listsSubjects();
+scourtney.listsSubjects();
+
+
+// Project Managers
+
+const pmanya = new ProjectManager({
+    name: 'Anya',
+    location: 'Austin',
+    age: 30,
+    gender: 'female',
+    favLanguage: 'HTML',
+    specialty: 'All of it',
+    catchPhrase: `I like to prove it.`,
+    gradClassName: `Web18`,
+    favInstructor: `George`
+  });
+
+  //test logs continued
+
+  console.log(pmanya.gradClassName);
+  console.log(pmanya.favInstructor);
+  pmanya.standUp(`web19_anya`);
+  pmanya.debugsCode(scourtney, `Javascript IV`);
