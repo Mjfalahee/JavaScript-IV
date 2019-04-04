@@ -71,6 +71,7 @@ class Student extends Person {
 // Project Manager class
 // props: gradClassName, favInstructor // props from parents: specialty, favLanguage, catchPhrase, name, age, location, gender
 // methods: standUp, debugsCode
+
 class ProjectManager extends Instructor {
     constructor(PMinfo) {
         super(PMinfo);
@@ -89,6 +90,21 @@ class ProjectManager extends Instructor {
 
 // Test objects for classes
 
+// Person class
+const ppam = new Person({
+    name: 'Pam',
+    location: 'Somewhere over the Rainbow',
+    age: 120,
+    gender: 'female'
+});
+
+// Test logs
+
+console.log(ppam.name);
+console.log(ppam.age);
+ppam.speak();
+
+//Instructor class
 const igeorge = new Instructor({
     name: 'George',
     location: 'Paris',
@@ -99,6 +115,25 @@ const igeorge = new Instructor({
     catchPhrase: `I like to move it.`
   });
 
+  
+const ibeth = new Instructor({
+    name: 'Beth',
+    location: 'Detroit',
+    age: 37,
+    gender: 'female',
+    favLanguage: 'CSS',
+    specialty: 'Front-end',
+    catchPhrase: `I like to design it.`
+  });
+
+  //test logs continued
+
+  console.log(igeorge.favLanguage);
+  console.log(ibeth.age);
+  console.log(igeorge.specialty);
+  igeorge.demo('Javascript');
+  
+// Student Class
 const sphil = new Student({
     name: 'Phil',
     location: 'London',
@@ -109,4 +144,7 @@ const sphil = new Student({
     favSubjects: ['JavaScript', 'Video Editing', 'Greek Philosophy', 'Cooking']
 }) 
 
+// Test logs continued
+ibeth.grade(sphil, 'Javascript IV');
+console.log(sphil.name);
 sphil.listsSubjects();
