@@ -32,6 +32,9 @@ class GameObject {
         this.name = attributes.name;
         this.dimensions = attributes.dimensions;
     }
+    destroy() {
+        return `${this.name} was removed from the game.`;
+    }
 }
 /*
 function GameObject(attributes) {
@@ -39,14 +42,13 @@ function GameObject(attributes) {
     this.name = attributes.name;
     this.dimensions = attributes.dimensions;
   }
-  */
+
+
   GameObject.prototype.destroy = function(){
     return `${this.name} was removed from the game.`;
   }
   
-  /* 
-  
-  Personal tests
+  ////Personal tests
   
   const Egg = new GameObject( {
     createdAt: "2 PM",
@@ -68,22 +70,27 @@ function GameObject(attributes) {
         super(stats);
         this.healthPoints = stats.healthPoints;
       }
+
+      takeDamage() {
+        return `${this.name} took damage.`;
+      }
+      
   }
+
+  /// old code
   /*
   function CharacterStats(stats) {
     GameObject.call(this, stats);
     this.healthPoints = stats.healthPoints;
   }
-  */
+
   CharacterStats.prototype = Object.create(GameObject.prototype);
   
   CharacterStats.prototype.takeDamage = function(){
     return `${this.name} took damage.`;
   }
-  
-  /* 
-  
-  Personal Tests
+
+  ////Personal Tests
   
   const Egg = new CharacterStats( {
     createdAt: "2 PM",
@@ -112,22 +119,26 @@ function GameObject(attributes) {
         this.weapons = elements.weapons;
         this.language = elements.language;
        }
+
+       greet() {
+        return `${this.name} offers a greeting in ${this.language}`;
+       }
    }
    /*
+
+   //// old code
   function Humanoid(elements) {
     CharacterStats.call(this,elements);
     this.team = elements.team;
     this.weapons = elements.weapons;
     this.language = elements.language;
   }
-  */
+  
   Humanoid.prototype = Object.create(CharacterStats.prototype);
   
   Humanoid.prototype.greet = function() {
     return `${this.name} offers a greeting in ${this.language}`;
   }
-  
-  /*
     * Inheritance chain: GameObject -> CharacterStats -> Humanoid
     * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
     * Instances of CharacterStats should have all of the same properties as GameObject.
@@ -202,7 +213,38 @@ function GameObject(attributes) {
     // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
     // * Create two new objects, one a villain and one a hero and fight it out with methods!
   
+    class Villain extends Humanoid {
+        constructor(evil) {
+            super(evil);
+        }
+        attack(target) {
+            let x = 8;
+            let y = 11;
+            let damage = Math.floor(Math.random() * (+y - +x) + +x);
+            target.healthPoints = target.healthPoints - damage;
+            if (this.healthPoints < 1) {
+              console.log(`${this.name} has perished and cannot continue the fight`)
+              return target.healthPoints;
+            }
+            if (target.healthPoints < 1) {
+              console.log(`${this.name} has won the fight, and holds his swing`)
+              return target.healthPoints;
+            } 
+            if (target.healthPoints < 10) { 
+              console.log(`${this.name} savagely ends the life of ${target.name} with a final swing from his ${this.weapons}`)
+              return target.healthPoints;
+            }
+            else {
+              console.log(`${this.name} attacks ${target.name} with his ${this.weapons} for ${damage} damage`);
+              console.log(`${target.name} has ${target.healthPoints} health remaining`);
+              return target.healthPoints;
+            }
+        }
+    }
+
     /*
+    // old code
+
     function Villain(evil) {
       Humanoid.call(this,evil);
     }
@@ -232,7 +274,40 @@ function GameObject(attributes) {
         return target.healthPoints;
       }
     };
-  
+  */
+
+    class Hero extends Humanoid {
+        constructor(good) {
+            super(good);
+        }
+        attack(target) {
+            let x = 10;
+            let y = 15;
+            let damage = Math.floor(Math.random() * (+y - +x) + +x);
+            target.healthPoints = target.healthPoints - damage;
+            if (this.healthPoints < 1) {
+              console.log(`${this.name} has perished and cannot continue the fight`)
+              return target.healthPoints;
+            }
+            if (target.healthPoints < 1) {
+              console.log(`${this.name} has won the fight, and holds his swing`)
+              return target.healthPoints;
+            }
+            if (target.healthPoints < 10) {
+              console.log(`${this.name} savagely ends the life of ${target.name} with a final swing from his ${this.weapons}`)
+              return target.healthPoints;
+            }
+            else {
+              console.log(`${this.name} attacks ${target.name} with his ${this.weapons} for ${damage} damage`);
+              console.log(`${target.name} has ${target.healthPoints} health remaining`);
+              return target.healthPoints;
+            }
+        }
+    }
+
+    /*
+    /// old code
+
     function Hero(good) {
       Humanoid.call(this,good);
     }
@@ -263,6 +338,8 @@ function GameObject(attributes) {
         return target.healthPoints;
       }
     };
+
+    */
   
     const Bill = new Hero({
       createdAt: new Date(),
@@ -314,5 +391,3 @@ function GameObject(attributes) {
     Randy.attack(Bill);
     Bill.attack(Randy);
     Randy.attack(Bill);
-
-    */
